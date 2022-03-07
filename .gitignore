@@ -1,8 +1,6 @@
-# dotnet console
+# dotnet runtime files
 bin/
 obj/
 
-*.csproj
-
-# VS coe
+# VS Code files
 .vscode

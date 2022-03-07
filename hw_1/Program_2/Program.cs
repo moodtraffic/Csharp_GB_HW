@@ -8,11 +8,11 @@
 int firstNumber;
 int secondNumber;
 
-Console.Write("Inpur first number: ");
+Console.Write("Input first number: ");
 
 firstNumber = Convert.ToInt32(Console.ReadLine());
 
-Console.Write("Inpur second number: ");
+Console.Write("Input second number: ");
 secondNumber = Convert.ToInt32(Console.ReadLine());
 
 Console.WriteLine();
@@ -20,9 +20,9 @@ Console.WriteLine();
 if (firstNumber == secondNumber) {
     Console.WriteLine("Numbers are equal");
 } else if (firstNumber > secondNumber) {
-    Console.WriteLine("The first number is greater than second number");
+    Console.WriteLine("The first number " + firstNumber + " is greater than second number " + secondNumber);
 } else {
-    Console.WriteLine("The second number is greater than first number");
+    Console.WriteLine("The second number " + secondNumber + " is greater than first number " + firstNumber);
 }
 
 Console.WriteLine();
