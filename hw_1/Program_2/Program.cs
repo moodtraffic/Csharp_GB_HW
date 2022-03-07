@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @author Igor Frolov <moodtraffic@gmail.com>
  *
  * Принимает два числа от пользователя
