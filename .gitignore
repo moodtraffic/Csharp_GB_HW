@@ -1,0 +1,8 @@
+# dotnet console
+bin/
+obj/
+
+*.csproj
+
+# VS coe
+.vscode
