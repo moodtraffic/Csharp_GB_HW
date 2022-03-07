@@ -8,7 +8,6 @@
 int number1st, number2nd, number3rd;
 
 Console.Write("Input 1st number: ");
-
 number1st = Convert.ToInt32(Console.ReadLine());
 
 Console.Write("Input 2nd number: ");

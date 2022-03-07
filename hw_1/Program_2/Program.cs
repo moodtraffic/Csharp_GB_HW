@@ -9,7 +9,6 @@ int firstNumber;
 int secondNumber;
 
 Console.Write("Input first number: ");
-
 firstNumber = Convert.ToInt32(Console.ReadLine());
 
 Console.Write("Input second number: ");
