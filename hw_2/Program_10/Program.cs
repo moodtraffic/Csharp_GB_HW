@@ -13,6 +13,8 @@ int digit;
 Console.Write("Input a number: ");
 number = Convert.ToInt32(Console.ReadLine());
 
+Console.WriteLine();
+
 if (number < 100 || number > 999) {
     Console.WriteLine("Your number is not at range [100; 999]");
 } else {

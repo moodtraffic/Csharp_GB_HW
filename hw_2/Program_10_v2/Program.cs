@@ -23,6 +23,8 @@ number = Console.ReadLine();
 // поиск по регулярному выражению
 MatchCollection matches = re.Matches(number);
 
+Console.WriteLine();
+
 if (matches.Count != 1) {
     // должно быть ровно одно совпадение, иначе строка нам не подходит
     Console.WriteLine("Input string does not matches [\\d{3}]");
