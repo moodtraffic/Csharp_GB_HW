@@ -17,29 +17,29 @@ string? coord; // при запуска ругается что знаение �
     - через регулярное выражение, чтобы вводить координаты вида `1.23 4.56 7.89`
 */
 
-Console.Write("Inout x of A: ");
+Console.Write("Input x of A: ");
 coord = Console.ReadLine();
 A[0] = coord == null ? 0 : double.Parse(coord);
 
-Console.Write("input y of A: ");
+Console.Write("Input y of A: ");
 coord = Console.ReadLine();
 A[1] = coord == null ? 0 : double.Parse(coord);
 
-Console.Write("input z of A: ");
+Console.Write("Input z of A: ");
 coord = Console.ReadLine();
 A[2] = coord == null ? 0 : double.Parse(coord);
 
 Console.WriteLine();
 
-Console.Write("Inout x of B: ");
+Console.Write("Input x of B: ");
 coord = Console.ReadLine();
 B[0] = coord == null ? 0 : double.Parse(coord);
 
-Console.Write("input y of B: ");
+Console.Write("Input y of B: ");
 coord = Console.ReadLine();
 B[1] = coord == null ? 0 : double.Parse(coord);
 
-Console.Write("input z of B: ");
+Console.Write("Input z of B: ");
 coord = Console.ReadLine();
 B[2] = coord == null ? 0 : double.Parse(coord);
 
