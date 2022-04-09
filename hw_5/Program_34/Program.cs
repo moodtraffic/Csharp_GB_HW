@@ -5,6 +5,7 @@
  * выводи количество четных чисел в массиве
  */
 
+const bool debug = true;
 int size = 0;
 
 // проверим введено ли кол-во элементов в первом аргументе при вызове программы
@@ -20,13 +21,23 @@ if (size < 1) {
 }
 
 if (size < 1) {
-    Console.WriteLine("Arrat size should be > 0");
+    Console.WriteLine("Array size should be > 0");
 
     Environment.Exit(0);
 }
 
 int[] Numbers = generateArrayOf(size, 100, 999);
-int counter = calcEvenNumbers(Numbers, true);
+int counter = calcEvenNumbers(Numbers);
+
+if (debug) {
+    // просто выведем массив
+    for (int i = 0; i < Numbers.Length; i++) {
+        Console.Write(Numbers[i]);
+        Console.WriteLine(Numbers[i] % 2 == 0 ? " <- number is even" : "");
+    }
+
+    Console.WriteLine();
+}
 
 Console.WriteLine($"Array of {Numbers.Length} numbers has {counter} even numbers");
 Console.WriteLine();
@@ -44,17 +55,13 @@ int[] generateArrayOf(int size, int minNumber = Int32.MinValue, int maxNumber = 
     return numbers;
 }
 
-int calcEvenNumbers(int[] numbers, bool debug = false)
+int calcEvenNumbers(int[] Numbers)
 {
     int counter = 0;
 
-    for(int i = 0; i < size; i++) {
-        if (numbers[i] % 2 == 0) {
+    for (int i = 0; i < Numbers.Length; i++) {
+        if (Numbers[i] % 2 == 0) {
             counter++;
-        }
-
-        if (debug) {
-            Console.WriteLine(Numbers[i]);
         }
     }
 
