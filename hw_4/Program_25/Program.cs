@@ -1,9 +1,11 @@
 /**
  * @author Igor Frolov <moodtraffic@gmail.com>
  *
- * Принимает на вход натуральное число A и натуральное число B. Выводит результат возведения
+ * Принимает на вход целое число A и целое число B. Выводит результат возведения
  * числа A в степень B.
  */
+
+const bool isOnlyNatural = false;
 
 int numberA = 0;
 int numberB = 0;
@@ -24,6 +26,15 @@ if (args.Length >= 2) {
    numberB = Convert.ToInt32(Console.ReadLine());
    Console.WriteLine();
 }
+
+if (isOnlyNatural && numberB < 1) {
+    Console.WriteLine("Number B should be ≥ 1");
+    Console.WriteLine("Exit");
+
+    Environment.Exit(0);
+}
+
+// сделал общее решения не только для натуральных, но и для всех целых чисел
 
 double Result = 1; // степень 0
 
