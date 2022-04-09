@@ -37,8 +37,13 @@ if (debug) {
     Console.WriteLine();
 }
 
-Console.WriteLine();
+(double MinRealNumber, double MaxRealNumber) = getMinAndMaxFromArray(RealNumbers);
 
+Console.WriteLine($"Array of {RealNumbers.Length} numbers");
+Console.WriteLine($"    Min is {MinRealNumber}");
+Console.WriteLine($"    Max is {MaxRealNumber}");
+Console.WriteLine($"Max minus Min is {MaxRealNumber-MinRealNumber}");
+Console.WriteLine();
 
 double[] generateArrayOfReal(int size)
 {
@@ -51,4 +56,22 @@ double[] generateArrayOfReal(int size)
     }
 
     return realNumbers;
+}
+
+(double, double) getMinAndMaxFromArray(double[] RealNumbers)
+{
+    double MinValue = RealNumbers[0];
+    double MaxValue = RealNumbers[0];
+
+    for (int i = 1; i < RealNumbers.Length; i++) {
+        if (MaxValue < RealNumbers[i]) {
+            MaxValue = RealNumbers[i];
+        }
+
+        if (MinValue > RealNumbers[i]) {
+            MinValue = RealNumbers[i];
+        }
+    }
+
+    return (MinValue, MaxValue);
 }
