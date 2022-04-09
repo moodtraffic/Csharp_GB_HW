@@ -66,9 +66,7 @@ double[] generateArrayOfReal(int size)
     for (int i = 1; i < RealNumbers.Length; i++) {
         if (MaxValue < RealNumbers[i]) {
             MaxValue = RealNumbers[i];
-        }
-
-        if (MinValue > RealNumbers[i]) {
+        } else if (MinValue > RealNumbers[i]) {
             MinValue = RealNumbers[i];
         }
     }
