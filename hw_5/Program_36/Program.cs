@@ -33,7 +33,7 @@ if (debug) {
     // просто выведем массив
     for (int i = 0; i < Numbers.Length ; i++) {
         Console.Write(Numbers[i]);
-        Console.WriteLine(i % 2 == 0 ? $" <- index is {i+1}" : "");
+        Console.WriteLine(i % 2 == 1 ? $" <- index is {i}" : "");
     }
 
     Console.WriteLine();
@@ -60,8 +60,8 @@ int calcElementsSummWithOddIndexes(int[] Numbers)
 {
     int summ = 0;
 
-    // начем с первого (т.е. с i = 0), с шагом 2 т.к. нам сразу нужны только нечетные индексы = 1, 3, 5 ...
-    for (int i = 0; i < Numbers.Length; i += 2) {
+    // первая нечетная позиция это i = 1, далее с шагом 2 т.к. нам сразу нужны только нечетные индексы = 1, 3, 5 ...
+    for (int i = 1; i < Numbers.Length; i += 2) {
         summ += Numbers[i];
     }
 

@@ -26,7 +26,7 @@ if (size < 1) {
     Environment.Exit(0);
 }
 
-int[] Numbers = generateArrayOf(size, 100, 999);
+int[] Numbers = generateArrayOf(size, 100, 1000);
 int counter = calcEvenNumbers(Numbers);
 
 if (debug) {
