@@ -10,7 +10,7 @@ int number = 0;
 double numberCube = 0;
 double rate = 3;
 
-Console.Write($"Input a number: ");
+Console.Write("Input a number: ");
 number = Convert.ToInt32(Console.ReadLine());
 
 Console.WriteLine();

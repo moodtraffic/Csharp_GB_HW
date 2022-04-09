@@ -10,15 +10,16 @@
 using System;
 using System.Text.RegularExpressions;
 
-string number;
 Regex re = new Regex(@"^(\d{3})$"); // регулярное выражение
 // строка должжна строго начинаться с последовательности из цифр
 // последовательность цифр должна быть длинной = 3
 // строка дожна заканчиваться сразу после цифры
 // создадим регулярное выражение
 
-Console.Write("Input a number: ");
-number = Console.ReadLine();
+Console.Write("Input a 3-digit number: ");
+string? number = Console.ReadLine();
+
+number = null == number ? "" : number;
 
 // поиск по регулярному выражению
 MatchCollection matches = re.Matches(number);
