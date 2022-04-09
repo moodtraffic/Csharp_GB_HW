@@ -1,7 +1,7 @@
 /**
  * @author Igor Frolov <moodtraffic@gmail.com>
  *
- * Принимает создает массив из N-элементв, заполненный случайными числами,
+ * Cоздает массив из N-элементов, заполненный случайными числами,
  * находит сумму элементов с нечетными индексами
  */
 
@@ -49,7 +49,7 @@ int[] generateArrayOf(int size, int minNumber = Int32.MinValue, int maxNumber = 
 
     Random generator = new Random();
 
-    for(int i = 0; i < size; i++) {
+    for (int i = 0; i < size; i++) {
         numbers[i] = generator.Next(minNumber, maxNumber);
     }
 

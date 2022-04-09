@@ -1,7 +1,7 @@
 /**
  * @author Igor Frolov <moodtraffic@gmail.com>
  *
- * Принимает создает массив из N-элементв, состоящий из трехзначныех положительных чисел,
+ * Создает массив из N-элементов, состоящий из трехзначныех положительных чисел,
  * выводи количество четных чисел в массиве
  */
 
@@ -48,7 +48,7 @@ int[] generateArrayOf(int size, int minNumber = Int32.MinValue, int maxNumber = 
 
     Random generator = new Random();
 
-    for(int i = 0; i < size; i++) {
+    for (int i = 0; i < size; i++) {
         numbers[i] = generator.Next(minNumber, maxNumber);
     }
 
