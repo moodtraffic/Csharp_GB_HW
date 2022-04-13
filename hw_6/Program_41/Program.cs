@@ -17,7 +17,7 @@ Console.Clear();
 printMenu();
 
 int numberCount = 0;
-int[] Numbers = {0};
+int[] Numbers = new int[] {};
 
 int mode = chooseMode();
 
@@ -25,8 +25,18 @@ int mode = chooseMode();
 
 switch (mode) {
     case 1:
-        // read file
-        // fill array from file
+        string filename = "./program_41.data";
+
+        Console.WriteLine($"Reading from file [{filename}]...");
+
+        Numbers = readNumbersFromFile(filename);
+        numberCount = Numbers.Length;
+
+        Console.WriteLine($"{numberCount} lines read from file");
+
+        printArray(Numbers);
+        Console.WriteLine();
+
         break;
 
     case 2:
@@ -59,9 +69,9 @@ if (numberCount > 0) {
     int positiveumbers = calcNumbersGreaterThan(Numbers, 0);
 
     if (positiveumbers == 1) {
-        resultMessage = "An only one positive number found";
+        resultMessage = "Only one positive number found";
     } else if (positiveumbers > 1) {
-        resultMessage = $"A {positiveumbers} positive numbers found";
+        resultMessage = $"{positiveumbers} positive numbers found";
     } else {
         resultMessage = "No positive numbers found";
     }
@@ -165,4 +175,20 @@ void printArray(in int[] Array, string delimiter = ", ")
     }
 
     Console.WriteLine($"{Array[last]})");
+}
+
+int[] readNumbersFromFile(string filename)
+{
+    string[] lines = File.ReadAllLines(filename);
+
+    int[] numbers = new int[lines.Count()];
+
+    int i = 0;
+    foreach (string line in lines) {
+        int.TryParse(line, out int parsedNumber);
+
+        numbers[i++] = parsedNumber;
+    }
+
+    return numbers;
 }
