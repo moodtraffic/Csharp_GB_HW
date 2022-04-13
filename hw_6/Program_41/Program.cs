@@ -61,6 +61,11 @@ switch (mode) {
         Console.WriteLine();
 
         break;
+
+    default:
+        Environment.Exit(0);
+
+        break;
 }
 
 string resultMessage = "No numbers given. Exit";
@@ -185,9 +190,7 @@ int[] readNumbersFromFile(string filename)
 
     int i = 0;
     foreach (string line in lines) {
-        int.TryParse(line, out int parsedNumber);
-
-        numbers[i++] = parsedNumber;
+        int.TryParse(line, out numbers[i++]);
     }
 
     return numbers;
