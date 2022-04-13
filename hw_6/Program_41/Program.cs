@@ -13,10 +13,15 @@ string[] menus = {
     "Exit"
 };
 
+Console.Clear();
 printMenu();
-int mode = chooseMode();
 
 int numberCount = 0;
+int[] Numbers = {};
+
+int mode = chooseMode();
+
+/******************** [ main ] ****************************************/
 
 switch (mode) {
     case 1:
@@ -25,25 +30,54 @@ switch (mode) {
         break;
 
     case 2:
-        numberCount = inputNumber("Set array size: ", 1);
-        // запросить с клавиатуры
+        numberCount = inputNumber("Set array size: ", 2);
+
+        Numbers = new int[numberCount];
+
+        Console.WriteLine($"And now, please, input {numberCount} numbers, line by line");
+        for (int i = 0; i < numberCount; i++) {
+            Numbers[i] = inputNumber($"  number {i+1} of {numberCount}: ", -10000, 10000);
+        }
+        Console.WriteLine();
+
         break;
 
     case 3:
-        numberCount = inputNumber("Set array size: ", 1);
-        // сгенерировать массив
+        numberCount = inputNumber("Set array size: ", 2);
+
+        Numbers = generateArrayOf(numberCount, -10000, 10000);
+
+        printArray(Numbers);
+        Console.WriteLine();
+
         break;
 }
 
-if (numberCount < 1) {
-    Console.WriteLine();
-    Environment.Exit(0);
+string resultMessage = "No numbers given. Exit";
+
+if (numberCount > 0) {
+    int positiveumbers = 0;
+
+    for (int i = 0; i < numberCount; i++) {
+        if (Numbers[i] > 0) {
+            ++positiveumbers;
+        }
+    }
+
+    if (positiveumbers == 1) {
+        resultMessage = "An only one positive number found";
+    } else if (positiveumbers > 1) {
+        resultMessage = $"A {positiveumbers} positive numbers found";
+    } else {
+        resultMessage = "No positive numbers found";
+    }
 }
 
-// посчитать сколько числе больше 0
+Console.WriteLine(resultMessage);
+Console.WriteLine();
+Environment.Exit(0);
 
 /******************** [ functions ] ****************************************/
-
 
 void printMenu()
 {
@@ -83,7 +117,7 @@ int inputNumber(string message, int? MinValue = null, int? MaxValue = null)
 
         errorMessage = $"Number should be ≥ {MinValue}";
     } else {
-        errorMessage = $"Number should be betwean {MinValue} and {MaxValue}";
+        errorMessage = $"Number should be in range [{MinValue}; {MaxValue}]";
     }
 
     do {
@@ -99,4 +133,29 @@ int inputNumber(string message, int? MinValue = null, int? MaxValue = null)
     } while(true);
 
     return number;
+}
+
+int[] generateArrayOf(int size, int minNumber = Int32.MinValue, int maxNumber = Int32.MaxValue)
+{
+    int[] numbers = new int[size];
+
+    Random generator = new Random();
+
+    for (int i = 0; i < size; i++) {
+        numbers[i] = generator.Next(minNumber, maxNumber);
+    }
+
+    return numbers;
+}
+
+void printArray(int[] Array, string delimiter = ", ")
+{
+    int last = Array.Length -1;
+
+    Console.Write("(");
+    for (int i = 0; i < last; i++) {
+        Console.Write($"{Array[i]}{delimiter}");
+    }
+
+    Console.WriteLine($"{Array[last]})");
 }
