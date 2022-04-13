@@ -55,7 +55,7 @@ int[] generateArrayOf(int size, int minNumber = Int32.MinValue, int maxNumber = 
     return numbers;
 }
 
-int calcEvenNumbers(int[] Numbers)
+int calcEvenNumbers(in int[] Numbers)
 {
     int counter = 0;
 

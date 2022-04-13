@@ -58,7 +58,7 @@ double[] generateArrayOfReal(int size)
     return realNumbers;
 }
 
-(double, double) getMinAndMaxFromArray(double[] RealNumbers)
+(double, double) getMinAndMaxFromArray(in double[] RealNumbers)
 {
     double MinValue = RealNumbers[0];
     double MaxValue = RealNumbers[0];

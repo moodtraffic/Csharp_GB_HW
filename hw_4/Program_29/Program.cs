@@ -26,7 +26,7 @@ int[] generateArrayOf(uint size, int minNumber = Int32.MinValue, int maxNumber =
     return numbers;
 }
 
-void printArray(int[] Array, string delimiter = ", ")
+void printArray(in int[] Array, string delimiter = ", ")
 {
     int last = Array.Length -1;
 

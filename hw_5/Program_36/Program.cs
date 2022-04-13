@@ -56,7 +56,7 @@ int[] generateArrayOf(int size, int minNumber = Int32.MinValue, int maxNumber = 
     return numbers;
 }
 
-int calcElementsSummWithOddIndexes(int[] Numbers)
+int calcElementsSummWithOddIndexes(in int[] Numbers)
 {
     int summ = 0;
 
