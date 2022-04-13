@@ -17,7 +17,7 @@ Console.Clear();
 printMenu();
 
 int numberCount = 0;
-int[] Numbers = {};
+int[] Numbers = {0};
 
 int mode = chooseMode();
 
@@ -43,7 +43,7 @@ switch (mode) {
         break;
 
     case 3:
-        numberCount = inputNumber("Set array size: ", 2);
+        numberCount = inputNumber("Set array size: ", 2, 1000);
 
         Numbers = generateArrayOf(numberCount, -10000, 10000);
 
@@ -56,13 +56,7 @@ switch (mode) {
 string resultMessage = "No numbers given. Exit";
 
 if (numberCount > 0) {
-    int positiveumbers = 0;
-
-    for (int i = 0; i < numberCount; i++) {
-        if (Numbers[i] > 0) {
-            ++positiveumbers;
-        }
-    }
+    int positiveumbers = calcNumbersGreaterThan(Numbers, 0);
 
     if (positiveumbers == 1) {
         resultMessage = "An only one positive number found";
@@ -100,6 +94,19 @@ int chooseMode()
     return mode;
 }
 
+int calcNumbersGreaterThan(in int[] Numbers, int greaterThanMe)
+{
+    int counter = 0;
+
+    for (int i = 0; i < numberCount; i++) {
+        if (Numbers[i] > greaterThanMe) {
+            ++counter;
+        }
+    }
+
+    return counter;
+}
+
 int inputNumber(string message, int? MinValue = null, int? MaxValue = null)
 {
     string? errorMessage = null;
@@ -135,20 +142,20 @@ int inputNumber(string message, int? MinValue = null, int? MaxValue = null)
     return number;
 }
 
-int[] generateArrayOf(int size, int minNumber = Int32.MinValue, int maxNumber = Int32.MaxValue)
+int[] generateArrayOf(int size, int MinValue = Int32.MinValue, int MaxValue = Int32.MaxValue)
 {
     int[] numbers = new int[size];
 
     Random generator = new Random();
 
     for (int i = 0; i < size; i++) {
-        numbers[i] = generator.Next(minNumber, maxNumber);
+        numbers[i] = generator.Next(MinValue, MaxValue);
     }
 
     return numbers;
 }
 
-void printArray(int[] Array, string delimiter = ", ")
+void printArray(in int[] Array, string delimiter = ", ")
 {
     int last = Array.Length -1;
 
