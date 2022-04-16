@@ -15,7 +15,7 @@ try {
     Console.WriteLine();
 
     // точка пересечения (x; y)
-    (double x, double y) = calcLinesMergeCoord(line1, line2);
+    (double x, double y) = calcLinesIntersectionCoords(line1, line2);
 
     Console.WriteLine($"Intersection coords is ({x}; {y})");
 } catch (Exception e) {
@@ -24,7 +24,7 @@ try {
 
 Console.WriteLine();
 
-(double, double) calcLinesMergeCoord(double[] line1, double [] line2)
+(double, double) calcLinesIntersectionCoords(double[] line1, double [] line2)
 {
     double x, y;
 
