@@ -6,7 +6,7 @@
  */
 
 int M = -1;
-int N = 15;
+int N = 12;
 
 int[] naturalNumbers = getNaturalNumbersFromRange(M, N);
 
@@ -18,8 +18,14 @@ if (naturalNumbers.Length < 1) {
     Environment.Exit(0);
 }
 
-Console.WriteLine($"The range [{M}; {N}] includes {naturalNumbers.Length} natural (≥ 1) numbers:");
+reverseArray(ref naturalNumbers); // по условию задачи нужно вывести в обратном порядке - развернем массив
+
+Console.WriteLine($"The range [{M}; {N}] includes {naturalNumbers.Length} natural (≥ 1) numbers");
+Console.Write("output reversed: ");
+
 printArray(naturalNumbers);
+
+Console.WriteLine();
 
 int[] getNaturalNumbersFromRange(int number1, int number2)
 {
@@ -58,4 +64,14 @@ void printArray(in int[] Array, string delimiter = ", ")
     }
 
     Console.WriteLine($"{Array[last]}");
+}
+
+void reverseArray(ref int[] Array)
+{
+    int size = Array.Length;
+
+    for (int i = 0; i < size / 2; i++)
+    {
+        (Array[i], Array[size -i -1]) = (Array[size -i -1], Array[i]);
+    }
 }
