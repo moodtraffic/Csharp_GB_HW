@@ -35,6 +35,7 @@ public class Matrix
     protected int number = 0;
     protected int[,] Values;
 
+    // конструктор
     public Matrix(int rows, int cols)
     {
         this.cols = cols;
@@ -156,6 +157,7 @@ public class MatrixArea
     public int cols;
     public int rows;
 
+    // конструктор
     public MatrixArea(int xmin, int ymin, int xmax, int ymax)
     {
         this.xMin = xmin;
