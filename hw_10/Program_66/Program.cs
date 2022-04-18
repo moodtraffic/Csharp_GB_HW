@@ -5,8 +5,9 @@
  * Пример: M = 1; N = 15 -> 120 M = 4; N = 8. -> 30
  */
 
-int M = 1;
-int N = 5;
+int M, N; // инициализация для чисел
+
+(M, N) = inputNumbers(args);
 
 int[] naturalNumbers = getNaturalNumbersFromRange(M, N);
 int naturalNumbersSum = 0;
@@ -20,8 +21,8 @@ if (naturalNumbers.Length < 1) {
 }
 
 Console.WriteLine($"The range [{M}; {N}] includes {naturalNumbers.Length} natural (≥ 1) numbers");
-Console.Write("output numbers: ");
-printArray(naturalNumbers);
+// Console.Write("output numbers: ");
+// printArray(naturalNumbers);
 
 naturalNumbersSum = getArraySum(naturalNumbers);
 
@@ -77,4 +78,59 @@ int getArraySum(in int[] Array)
     }
 
     return arraySum;
+}
+
+(int, int) inputNumbers(string[] args)
+{
+    int number1 = 0;
+    int number2 = 0;
+
+    if (args.Length > 0) {
+        number1 = int.Parse(args[0]);
+    } else {
+        number1 = inputNumber("Input first number (M): ");
+    }
+
+    if (args.Length > 1) {
+        number2 = int.Parse(args[1]);
+    } else {
+        number2 = inputNumber($"Input second number (N), it should be ≥ {number1}: ", number1);
+    }
+
+    return (number1, number2);
+}
+
+int inputNumber(string message, int? MinValue = null, int? MaxValue = null)
+{
+    string? errorMessage = null;
+    int number = 0;
+
+    if (MinValue == null && MaxValue == null) {
+        MinValue = Int32.MinValue;
+        MaxValue = Int32.MaxValue;
+    } else if (MinValue == null) {
+        MinValue = Int32.MinValue;
+
+        errorMessage = $"Number should be ≤ {MaxValue}";
+    } else if (MaxValue == null) {
+        MaxValue = Int32.MaxValue;
+
+        errorMessage = $"Number should be ≥ {MinValue}";
+    } else {
+        errorMessage = $"Number should be in range [{MinValue}; {MaxValue}]";
+    }
+
+    do {
+        Console.Write(message);
+
+        if (int.TryParse(Console.ReadLine(), out number) && number >= MinValue && number <= MaxValue) {
+            break;
+        }
+
+        if (null != errorMessage) {
+            Console.WriteLine(errorMessage);
+        }
+    } while(true);
+
+    return number;
 }
