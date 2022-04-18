@@ -6,8 +6,11 @@
  * Напишите программу, которая составит массив десятичных представлений чисел массива data с учётом информации из массива info.
  */
 
- int[] data = new int[10] {0, 1, 1, 1, 1, 0, 0, 0, 1, 0};
- int[] info = new int[4] {2, 3, 3, 1};
+ // int[] data = new int[9] {0, 1, 1, 1, 1, 0, 0, 0, 1, 0};
+ // int[] info = new int[4] {2, 3, 3, 1}; // 2 7 0 1
+
+int[] data = new int[10] {0, 0, 0, 0, 1, 1, 1, 1, 0, 1};
+int[] info = new int[3] {5, 3, 2}; // 16 7 2
 
 try {
     TuringMachine tape = new TuringMachine(data, info);
@@ -44,29 +47,29 @@ public class TuringMachine
     {
         int index = 0;
         int offset = 0;
-        int value = 0;
 
         for (int i = 0; i < this.sizes.Length; i++) {
-            offset = this.sizes[i]; // current size
+            offset = this.sizes[i]; // кол-во бит
 
-            value = this.bitsToNumber(index, offset);
-            index += offset;
+            yield return this.bitsToNumber(index, offset);
 
-            yield return value;
+            index += offset; // смещаемся
         }
     }
 
     protected int bitsToNumber(int index, int offset)
     {
-        int number = 0; // искомое число
+        int number = 0; // тут будет число
+        int numberProduct = 1; // 2 в степени 0 = 1
 
         // Пример: 10101 = 2^0 * 1 + 2^1 * 0 + 2^2 * 1 + 2^3 * 0 + 2^4 * 1
+        // собираем число по формуле, справа налево
+        for (int i = index; i <= index + offset -1; i++) {
+            if (1 == this.bits[i]) { // суммируем если бит = 1
+                number += numberProduct;
+            }
 
-        for (int i = index + offset -1; i >= index; i--) { // справа налево
-            // собираем число по формуле
-            number += Convert.ToInt32(
-                Math.Pow(2, Convert.ToDouble(i - index)) // 2 в степени
-            ) * this.bits[i]; // 0 или 1 -- умножаем
+            numberProduct *= 2; // следующая степень для 2
         }
 
         return number;
