@@ -2,48 +2,97 @@
  * @author Igor Frolov <moodtraffic@gmail.com>
  *
  * Пользователь вводит с клавиатуры размеры двумерного массива,
- * программа заполняет массив случайными вещественными числами.
+ * программа заполняет массив случайными целыми числами.
+ * Затем на ходит элементы, у которых оба индекса - нечетные
+ * и заменяет значение элемента на квадрат его значения.
  */
 
 int M, N; // инициализация для чисел, размеров матрицы MxN
 
 (M, N) = inputNumbers(args); // rows, cols
 
-double[,] matrix = new double[M, N];
+int[,] matrix = new int[M, N];
 
 Console.WriteLine($"Matrix size is {M}x{N}");
 Console.WriteLine();
 
-fillMatrixWithRandomRealNumbers(ref matrix);
+fillMatrixWithRandomNumbers(ref matrix, 0, 100);
 
 Console.WriteLine("Matrix:");
 printMatrix(matrix);
+
+double[] columnAvg = new double[N];
+for (int j = 0; j < N; j++) {
+    columnAvg[j] = arrayGetAvg(matrixGetColumn(matrix, j));
+}
+
+Console.WriteLine("Avg:");
+for (int j = 0; j < N; j++) {
+    Console.Write($"{columnAvg[j], 8:F2}");
+}
+
 Console.WriteLine();
 Console.WriteLine();
 
 /******************** [ functions ] ****************************************/
 
-void fillMatrixWithRandomRealNumbers(ref double[,] Array, double multiplier = 10)
+void fillMatrixWithRandomNumbers(ref int[,] Array, int MinValue = Int32.MinValue, int MaxValue = Int32.MaxValue)
 {
     Random generator = new Random();
 
     for (int i = 0; i < Array.GetLength(0); i++) {
         for (int j = 0; j < Array.GetLength(1); j++) {
-            Array[i, j] = generator.NextDouble() * multiplier;
+            Array[i, j] = generator.Next(MinValue, MaxValue);
         }
     }
 }
 
-void printMatrix(in double[,] Array)
+double arrayGetAvg(in int[] Array)
+{
+    double summ = 0;
+    int size = Array.Length;
+
+    for (int i = 0; i < size; i++) {
+        summ += Array[i];
+    }
+
+    return summ / size;
+}
+
+int[] matrixGetColumn(in int[,] Array, int colNum)
+{
+    int[] column = new int[Array.GetLength(1) -1];
+
+    int j = 0;
+    for (int i = 0; i < Array.GetLength(0); i++) {
+        column[j++] = Array[i, colNum];
+    }
+
+    return column;
+}
+
+void printMatrix(in int[,] Array)
 {
     for (int i = 0; i < Array.GetLength(0); i++) {
         for (int j = 0; j < Array.GetLength(1); j++) {
-            Console.Write($"{Array[i, j], 6:F2}");
+            Console.Write($"{Array[i, j], 8}");
         }
 
         Console.WriteLine();
     }
 }
+
+// void printArray(in int[] Array, string delimiter = ", ")
+// {
+//     int last = Array.Length -1;
+//
+//     Console.Write("(");
+//     for (int i = 0; i < last; i++) {
+//         Console.Write($"{Array[i]}{delimiter}");
+//     }
+//
+//     Console.WriteLine($"{Array[last]})");
+// }
 
 (int, int) inputNumbers(string[] args)
 {

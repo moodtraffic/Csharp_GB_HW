@@ -18,16 +18,14 @@ Console.WriteLine();
 
 fillMatrixWithRandomNumbers(ref matrix, -100, 100);
 
-Console.WriteLine("Before:");
+Console.WriteLine("Matrix before:");
 printMatrix(matrix);
-
 Console.WriteLine();
 
 matrixPowWhereOddIndexes(ref matrix);
 
-Console.WriteLine("After:");
+Console.WriteLine("Matrix after:");
 printMatrix(matrix);
-
 Console.WriteLine();
 Console.WriteLine();
 
@@ -47,7 +45,7 @@ void fillMatrixWithRandomNumbers(ref int[,] Array, int MinValue = Int32.MinValue
 void matrixPowWhereOddIndexes(ref int[,] Array)
 {
     // двигаемся по нечетным строкам
-    for(int i = 1; i < Array.GetLength(0); i += 2) {
+    for (int i = 1; i < Array.GetLength(0); i += 2) {
         // двигаемся по нечетным колонкам
         for (int j = 1; j < Array.GetLength(1); j += 2) {
             // оба индекса будут не четные
@@ -58,7 +56,7 @@ void matrixPowWhereOddIndexes(ref int[,] Array)
 
 void printMatrix(in int[,] Array)
 {
-    for(int i = 0; i < Array.GetLength(0); i++) {
+    for (int i = 0; i < Array.GetLength(0); i++) {
         for (int j = 0; j < Array.GetLength(1); j++) {
             Console.Write($"{Array[i, j], 8}");
         }
