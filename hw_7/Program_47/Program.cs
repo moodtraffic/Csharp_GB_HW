@@ -27,7 +27,7 @@ void fillMatrixWithRandomRealNumbers(ref double[,] Array, double multiplier = 10
 {
     Random generator = new Random();
 
-    for(int i = 0; i < Array.GetLength(0); i++) {
+    for (int i = 0; i < Array.GetLength(0); i++) {
         for (int j = 0; j < Array.GetLength(1); j++) {
             Array[i, j] = generator.NextDouble() * multiplier;
         }
@@ -36,10 +36,11 @@ void fillMatrixWithRandomRealNumbers(ref double[,] Array, double multiplier = 10
 
 void printMatrix(in double[,] Array)
 {
-    for(int i = 0; i < Array.GetLength(0); i++) {
+    for (int i = 0; i < Array.GetLength(0); i++) {
         for (int j = 0; j < Array.GetLength(1); j++) {
             Console.Write($"{Array[i, j], 6:F2}");
         }
+
         Console.WriteLine();
     }
 }
