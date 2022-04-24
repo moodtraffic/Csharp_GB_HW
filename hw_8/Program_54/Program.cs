@@ -7,17 +7,18 @@
  * и заменяет значение элемента на квадрат его значения.
  */
 
+bool debug = false;
+
 int M, N; // инициализация для чисел, размеров матрицы MxN
 
 (M, N) = inputNumbers(args); // rows, cols
 
 int[,] matrix = new int[M, N];
+int counter = 100000; do {
 int swaps = 0;
-
-Console.WriteLine($"Matrix size is {M}x{N}");
+Console.WriteLine($"Matrix size is {M}x{N} / {counter}");
 Console.WriteLine();
-
-fillMatrixWithRandomNumbers(ref matrix, 0, 1000);
+fillMatrixWithRandomNumbers(ref matrix, -1000, 1000);
 
 Console.WriteLine("Matrix before:");
 printMatrix(matrix);
@@ -35,10 +36,11 @@ try {
     Console.WriteLine($"Matrix sorted with {swaps} swaps");
 } catch (Exception e) {
     Console.WriteLine("Error: " + e.Message);
+    break;
 }
 
 Console.WriteLine();
-
+} while(counter-- > 0);
 /******************** [ functions ] ****************************************/
 
 void validateMatrixIsMaxToMin(in int[,] Array)
@@ -72,9 +74,14 @@ void sortMatrixFromMaxToMin (ref int[,] Array, ref int swaps)
 
     int i, j; // rows, cols interators
     int leftValue, rightValue;
+    int minPos, maxPos;
+
+    int cycle = 1;
 
     while (true) {
-        // (minPos, maxPos) = (first, last);
+        if (debug) {
+            Console.WriteLine($"---[ cycle #{cycle++, 2} ]---------------------------------------");
+        }
 
         // устанавливаем начальные значения для первого (левого) и последнего (правого)
         (i, j) = getMatrixCoodrsByNumber(first, cols);
@@ -82,40 +89,34 @@ void sortMatrixFromMaxToMin (ref int[,] Array, ref int swaps)
         (i, j) = getMatrixCoodrsByNumber(last, cols);
         rightValue = Array[i, j];
 
-        if (leftValue < rightValue) {
-            swaps += matrixSwapTwoCellsByCellsNumbers(ref Array, first, last);
-            // debug
-            // Console.WriteLine("  <>");
-            // Console.WriteLine("Matrix after swap:");
-            // printMatrix(matrix);
-            (leftValue, rightValue) = (rightValue, leftValue);
-        }
+        (maxPos, minPos) = (first, last);
+
+        // if (leftValue < rightValue) {
+        //     swaps += matrixSwapTwoCellsByCellsNumbers(ref Array, first, last, "<>");
+        //     (leftValue, rightValue) = (rightValue, leftValue);
+        // }
 
         // листаем промежуток
-        for (int k = first +1; k <= last -1; k++) {
+        for (int k = first; k <= last; k++) {
             (i, j) = getMatrixCoodrsByNumber(k, cols);
 
             if (leftValue < Array[i, j]) {
                 leftValue = Array[i, j];
-                swaps += matrixSwapTwoCellsByCellsNumbers(ref Array, first, k);
-                // debug
-                // Console.WriteLine("  <<");
-                // Console.WriteLine("Matrix after swap:");
-                // printMatrix(matrix);
+                maxPos = k;
             } if (rightValue > Array[i, j]) {
                 rightValue = Array[i, j];
-                swaps += matrixSwapTwoCellsByCellsNumbers(ref Array, k, last);
-                // debug
-                // Console.WriteLine("  >>");
-                // Console.WriteLine("Matrix after swap:");
-                // printMatrix(matrix);
+                minPos = k;
             }
         }
 
-        // debug
-        // Console.WriteLine("Matrix after swap:");
-        // printMatrix(matrix);
-        // Console.WriteLine();
+        // Console.WriteLine($"{first} <=> {maxPos}");
+        // Console.WriteLine($"{minPos} <=> {last}");
+
+        swaps += matrixSwapTwoCellsByCellsNumbers(ref Array, first, maxPos, "<<");
+        // В ходе тестирования оказалось что без второго перемещения - сортировка работает даже с меньшим числом переставок
+        // if (first != minPos && maxPos != last) {
+        //     swaps += matrixSwapTwoCellsByCellsNumbers(ref Array, minPos, last, ">>");
+        // }
 
         if (--last - ++first -1 < 0) {
             break; // выходим, если промежуток кончился
@@ -128,7 +129,7 @@ void sortMatrixFromMaxToMin (ref int[,] Array, ref int swaps)
     return ((k -1) / cols, (k -1) % cols);
 }
 
-int matrixSwapTwoCellsByCellsNumbers(ref int[,] Array, int leftPos, int rightPos)
+int matrixSwapTwoCellsByCellsNumbers(ref int[,] Array, int leftPos, int rightPos, string type)
 {
     if (leftPos == rightPos) {
         return 0;
@@ -139,10 +140,15 @@ int matrixSwapTwoCellsByCellsNumbers(ref int[,] Array, int leftPos, int rightPos
     (int il, int jl) = getMatrixCoodrsByNumber(leftPos, cols);
     (int ir, int jr) = getMatrixCoodrsByNumber(rightPos, cols);
 
-    // debug
-    // Console.WriteLine($"  {Array[il, jl]} <=> {Array[ir, jr]}");
-
     (Array[il, jl], Array[ir, jr]) = (Array[ir, jr], Array[il, jl]);
+
+    if (debug) {
+        Console.WriteLine("  " + type);
+        Console.WriteLine($"  {Array[il, jl]} <=> {Array[ir, jr]}");
+        Console.WriteLine("Matrix after swap:");
+        printMatrix(matrix);
+        Console.WriteLine();
+    }
 
     return 1;
 }
