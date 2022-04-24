@@ -14,11 +14,12 @@ int M, N; // инициализация для чисел, размеров ма
 (M, N) = inputNumbers(args); // rows, cols
 
 int[,] matrix = new int[M, N];
-int counter = 100000; do {
+int counter = 100000;
+do {
 int swaps = 0;
 Console.WriteLine($"Matrix size is {M}x{N} / {counter}");
 Console.WriteLine();
-fillMatrixWithRandomNumbers(ref matrix, -1000, 1000);
+fillMatrixWithRandomNumbers(ref matrix, 0, 1000);
 
 Console.WriteLine("Matrix before:");
 printMatrix(matrix);
@@ -52,6 +53,8 @@ void validateMatrixIsMaxToMin(in int[,] Array)
             if (LastValue < Array[i, j]) {
                 throw new Exception($"Array was not sort good {LastValue} < {Array[i, j]} at [{i}; {j}]");
             }
+
+            LastValue = Array[i, j];
         }
     }
 }
@@ -91,13 +94,13 @@ void sortMatrixFromMaxToMin (ref int[,] Array, ref int swaps)
 
         (maxPos, minPos) = (first, last);
 
-        // if (leftValue < rightValue) {
-        //     swaps += matrixSwapTwoCellsByCellsNumbers(ref Array, first, last, "<>");
-        //     (leftValue, rightValue) = (rightValue, leftValue);
-        // }
+        if (leftValue < rightValue) {
+            swaps += matrixSwapTwoCellsByCellsNumbers(ref Array, first, last, "<>");
+            (leftValue, rightValue) = (rightValue, leftValue);
+        }
 
         // листаем промежуток
-        for (int k = first; k <= last; k++) {
+        for (int k = first +1; k <= last -1; k++) {
             (i, j) = getMatrixCoodrsByNumber(k, cols);
 
             if (leftValue < Array[i, j]) {
@@ -113,10 +116,7 @@ void sortMatrixFromMaxToMin (ref int[,] Array, ref int swaps)
         // Console.WriteLine($"{minPos} <=> {last}");
 
         swaps += matrixSwapTwoCellsByCellsNumbers(ref Array, first, maxPos, "<<");
-        // В ходе тестирования оказалось что без второго перемещения - сортировка работает даже с меньшим числом переставок
-        // if (first != minPos && maxPos != last) {
-        //     swaps += matrixSwapTwoCellsByCellsNumbers(ref Array, minPos, last, ">>");
-        // }
+        swaps += matrixSwapTwoCellsByCellsNumbers(ref Array, minPos, last, ">>");
 
         if (--last - ++first -1 < 0) {
             break; // выходим, если промежуток кончился
