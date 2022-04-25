@@ -57,17 +57,6 @@ int[] getNaturalNumbersFromRange(int number1, int number2)
     return numbers;
 }
 
-void printArray(in int[] Array, string delimiter = ", ")
-{
-    int last = Array.Length -1;
-
-    for (int i = 0; i < last; i++) {
-        Console.Write($"{Array[i]}{delimiter}");
-    }
-
-    Console.WriteLine($"{Array[last]}");
-}
-
 int getArraySum(in int[] Array)
 {
     int size = Array.Length;
