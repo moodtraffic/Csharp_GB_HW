@@ -14,10 +14,9 @@ int M, N; // инициализация для чисел, размеров ма
 (M, N) = inputNumbers(args); // rows, cols
 
 int[,] matrix = new int[M, N];
-int counter = 100000;
-do {
+// int counter = 1000; do { // for auto test
 int swaps = 0;
-Console.WriteLine($"Matrix size is {M}x{N} / {counter}");
+Console.WriteLine($"Matrix size is {M}x{N}");
 Console.WriteLine();
 fillMatrixWithRandomNumbers(ref matrix, 0, 1000);
 
@@ -37,11 +36,11 @@ try {
     Console.WriteLine($"Matrix sorted with {swaps} swaps");
 } catch (Exception e) {
     Console.WriteLine("Error: " + e.Message);
-    break;
+    // break; // for autotest
 }
 
 Console.WriteLine();
-} while(counter-- > 0);
+// } while(counter-- > 0); // for autotest
 /******************** [ functions ] ****************************************/
 
 void validateMatrixIsMaxToMin(in int[,] Array)

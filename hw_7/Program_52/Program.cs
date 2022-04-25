@@ -3,8 +3,7 @@
  *
  * Пользователь вводит с клавиатуры размеры двумерного массива,
  * программа заполняет массив случайными целыми числами.
- * Затем на ходит элементы, у которых оба индекса - нечетные
- * и заменяет значение элемента на квадрат его значения.
+ * Затем считает среднее значение в каждой колонке и выводит его
  */
 
 int M, N; // инициализация для чисел, размеров матрицы MxN
@@ -61,11 +60,10 @@ double arrayGetAvg(in int[] Array)
 
 int[] matrixGetColumn(in int[,] Array, int colNum)
 {
-    int[] column = new int[Array.GetLength(1) -1];
+    int[] column = new int[Array.GetLength(0)];
 
-    int j = 0;
     for (int i = 0; i < Array.GetLength(0); i++) {
-        column[j++] = Array[i, colNum];
+        column[i] = Array[i, colNum];
     }
 
     return column;
@@ -81,18 +79,6 @@ void printMatrix(in int[,] Array)
         Console.WriteLine();
     }
 }
-
-// void printArray(in int[] Array, string delimiter = ", ")
-// {
-//     int last = Array.Length -1;
-//
-//     Console.Write("(");
-//     for (int i = 0; i < last; i++) {
-//         Console.Write($"{Array[i]}{delimiter}");
-//     }
-//
-//     Console.WriteLine($"{Array[last]})");
-// }
 
 (int, int) inputNumbers(string[] args)
 {
