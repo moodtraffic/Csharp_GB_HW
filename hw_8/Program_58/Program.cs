@@ -17,14 +17,13 @@ Console.WriteLine($"Matrix #1 size is {M1}x{N1}");
 Console.WriteLine($"Matrix #2 size is {M2}x{N2}");
 Console.WriteLine();
 
-if (true != isMultiplicationPossible(matrix1, matrix2)) {
-    Console.WriteLine($"It is not possible to make multiplication, matrix #1 has {M1} rows but matrix #2 has {N2} cols");
-    Console.WriteLine();
-    Environment.Exit(0);
-}
-
 fillMatrixWithRandomNumbers(ref matrix1, 0, 100);
 fillMatrixWithRandomNumbers(ref matrix2, 0, 100);
+
+// test2x2x2x2(ref matrix1, ref matrix2); => 2x2
+// test2x2x2x3(ref matrix1, ref matrix2); => 2x3
+// test3x1x1x3(ref matrix1, ref matrix2); => 3x3
+// test1x3x3x1(ref matrix1, ref matrix2); => 1x1
 
 Console.WriteLine("Matrix #1:");
 printMatrix(matrix1);
@@ -36,19 +35,54 @@ printMatrix(matrix2);
 Console.WriteLine();
 Console.WriteLine();
 
-// multiplication
-// print result
+int[,] matrixResult = new int[M1, N2]; // matrix1.rows1 x matrix2.cols
+
+try {
+    matrixResult = matrixMultiplication(matrix1, matrix2);
+
+    Console.WriteLine("Result matrix:");
+    printMatrix(matrixResult);
+} catch (Exception e) {
+    Console.WriteLine("Error: " + e.Message);
+}
 
 Console.WriteLine();
 
 /******************** [ functions ] ****************************************/
 
-bool isMultiplicationPossible(in int[,] Array1, int[,] Array2)
+int[,] matrixMultiplication(in int[,] matrix1, in int[,] matrix2)
 {
-    (int rows1, int cols1) = (Array1.GetLength(0), Array1.GetLength(1));
-    (int rows2, int cols2) = (Array2.GetLength(0), Array2.GetLength(1));
+    if (true != isMultiplicationPossible(matrix1, matrix2)) {
+        throw new Exception($"It is not possible to make multiplication, matrix #1 has {N1} cols but matrix #2 has {M2} rows");
+    }
 
-    return (rows1 == cols2);
+    // строк в новой матрице, колонок в новой матрице, сллагаемых в каждой ячейке
+    (int newRows, int newCols, int size) = (matrix1.GetLength(0), matrix2.GetLength(1), matrix1.GetLength(1));
+
+    int[,] matrixNew = new int[newRows, newCols];
+
+    int[] row = new int[size];
+    int[] column = new int[size];
+
+    for (int j = 0; j <  newCols; j++) { // cols of matrix2
+        for (int i = 0; i < newRows; i++) { // rows of matrix1
+            matrixNew[i, j] = 0; // initial
+
+            row = matrixGetRow(matrix1, i); // row from matrix1
+            column = matrixGetColumn(matrix2, j); // column from matrix2
+
+            for (int k = 0; k < size; k++) {
+                matrixNew[i, j] += row[k] * column[k];
+            }
+        }
+    }
+
+    return matrixNew;
+}
+
+bool isMultiplicationPossible(in int[,] matrix1, int[,] Array2)
+{
+    return (matrix1.GetLength(1) == matrix2.GetLength(0));
 }
 
 void fillMatrixWithRandomNumbers(ref int[,] Array, int MinValue = Int32.MinValue, int MaxValue = Int32.MaxValue)
@@ -60,18 +94,6 @@ void fillMatrixWithRandomNumbers(ref int[,] Array, int MinValue = Int32.MinValue
             Array[i, j] = generator.Next(MinValue, MaxValue);
         }
     }
-}
-
-int arrayGetSum(in int[] Array)
-{
-    int summ = 0;
-    int size = Array.Length;
-
-    for (int i = 0; i < size; i++) {
-        summ += Array[i];
-    }
-
-    return summ;
 }
 
 int[] matrixGetRow(in int[,] Array, int rowNum)
@@ -174,4 +196,46 @@ int inputNumber(string message, int? MinValue = null, int? MaxValue = null)
     } while(true);
 
     return number;
+}
+
+void test2x2x2x2(ref int[,] matrix1, ref int[,] matrix2)
+{
+    matrix1[0, 0] = 1;
+    matrix1[0, 1] = 2;
+    matrix1[1, 0] = 3;
+    matrix1[1, 1] = 4;
+
+    matrix2[0, 0] = 0;
+    matrix2[0, 1] = 0;
+    matrix2[1, 0] = 1;
+    matrix2[1, 1] = 1;
+
+    // result:
+    // 0,0 = 2
+    // 0,1 = 2
+    // 1,0 = 4
+    // 1,1 = 4
+}
+
+void test2x2x2x3(ref int[,] matrix1, ref int[,] matrix2)
+{
+    matrix1[0, 0] = 2;
+    matrix1[0, 1] = 3;
+    matrix1[1, 0] = 6;
+    matrix1[1, 1] = 5;
+
+    matrix2[0, 0] = 8;
+    matrix2[0, 1] = 9;
+    matrix2[0, 2] = 7;
+    matrix2[1, 0] = 5;
+    matrix2[1, 1] = 3;
+    matrix2[1, 2] = 5;
+
+    // result:
+    // 0,0 = 31
+    // 0,1 = 27
+    // 0,2 = 29
+    // 1,0 = 73
+    // 1,1 = 69
+    // 1,2 = 67
 }
